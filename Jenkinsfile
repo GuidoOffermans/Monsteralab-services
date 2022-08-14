@@ -1,13 +1,16 @@
 pipeline {
     agent any
-    tools {
-        nodejs: 'node16'
-    }
+
     stages {
         stage('Build') {
             steps {
                 echo 'Building..'
-                sh 'npm version'
+                nodejs(nodeJSInstallationName: 'node16') {
+                      sh 'npm -v'
+                      sh 'node -v'
+                      sh 'yarn -v'
+                      sh 'npm install'
+                    }
             }
         }
         stage('Test') {
