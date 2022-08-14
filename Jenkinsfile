@@ -9,7 +9,7 @@ pipeline {
                       sh 'npm -v'
                       sh 'node -v'
                       sh 'yarn -v'
-                      sh 'npm install'
+                      sh 'yarn'
                     }
             }
         }
