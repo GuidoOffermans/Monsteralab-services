@@ -26,6 +26,10 @@ jobs:
   Build-and-push-docker-image:
     docker:
       - image: cimg/base:stable
+        auth:
+          username: $DOCKER_HUB_USER
+          password: $DOCKER_HUB_PASSWORD
+
     steps:
       - docker/check
       - docker/build:
