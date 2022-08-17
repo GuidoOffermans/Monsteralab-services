@@ -29,7 +29,7 @@ jobs:
     steps:
       - run: 
           command: |
-           echo DOCKER_HUB_USER
+           echo $DOCKER_HUB_USER
       - docker/check:
           docker-password: DOCKER_HUB_USER 
           docker-username: DOCKER_HUB_PASSWORD
