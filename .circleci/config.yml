@@ -33,15 +33,6 @@ jobs:
       - docker/push:
           image: monsteralab-auth  
 
-  push-to-dockerhub:
-    docker:
-      - image: cimg/base:stable
-        auth:
-          username: $DOCKER_HUB_USER
-          password: $DOCKER_HUB_PASSWORD
-    steps:
-    
-
 workflows:
   building-monsteralab:
     jobs:
@@ -49,7 +40,7 @@ workflows:
       - Using-Node:
           requires:
             - Fetch-remote-files
-      - Build-docker-image:
+      - Build-and-push-docker-image:
           requires:
             - Fetch-remote-files
             - Using-Node
