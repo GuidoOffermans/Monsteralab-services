@@ -34,8 +34,8 @@ jobs:
           command: |
            echo $DOCKER_HUB_USER
       - docker/check:
-          docker-password: DOCKER_HUB_USER 
-          docker-username: DOCKER_HUB_PASSWORD
+          docker-password: username 
+          docker-username: password
           use-docker-credentials-store: false
       - docker/build:
           image: monsteralab-auth 
