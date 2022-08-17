@@ -28,11 +28,11 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      - docker/install-docker
       - docker/check:
           docker-username: DOCKER_HUB_USER 
           docker-password: DOCKER_HUB_PASSWORD 
           use-docker-credentials-store: false
+      - docker/install-docker-tools
       - docker/build:
           image: monsteralab-auth
           path: ./Auth 
