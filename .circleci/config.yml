@@ -30,6 +30,7 @@ jobs:
       - docker/check:
           docker-password: DOCKER_HUB_USER 
           docker-username: DOCKER_HUB_PASSWORD
+          use-docker-credentials-store: false
       - docker/build:
           image: monsteralab-auth 
       - docker/push:
