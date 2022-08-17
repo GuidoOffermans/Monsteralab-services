@@ -30,6 +30,7 @@ jobs:
       - docker/check:
           docker-password: DOCKER_HUB_USER 
           docker-username: DOCKER_HUB_PASSWORD
+          registry: https://hub.docker.com/r/guido233/monsteralab-auth 
       - docker/build:
           image: monsteralab-auth 
       - docker/push:
