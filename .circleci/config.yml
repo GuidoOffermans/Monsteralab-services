@@ -33,7 +33,6 @@ jobs:
           docker-username: DOCKER_HUB_USER 
           docker-password: DOCKER_HUB_PASSWORD 
           use-docker-credentials-store: false
-      - docker/dockerlint
       - docker/build:
           image: monsteralab-auth
           path: ./Auth 
