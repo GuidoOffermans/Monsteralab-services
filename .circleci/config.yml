@@ -27,6 +27,7 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
+      - checkout
       - docker/check:
           docker-username: DOCKER_HUB_USER 
           docker-password: DOCKER_HUB_PASSWORD 
