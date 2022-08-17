@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  docker: circleci/docker@2.1.2
 
 jobs:
   Fetch-remote-files:
@@ -21,18 +23,24 @@ jobs:
           command: |
             node -v
 
-  Build-docker-image:
+  Build-and-push-docker-image:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - docker/check
+      - docker/build:
+          image: monsteralab-auth 
+      - docker/push:
+          image: monsteralab-auth  
+
+  push-to-dockerhub:
     docker:
       - image: cimg/base:stable
         auth:
           username: $DOCKER_HUB_USER
           password: $DOCKER_HUB_PASSWORD
     steps:
-      - run: 
-          name: build the image
-          command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
+    
 
 workflows:
   building-monsteralab:
