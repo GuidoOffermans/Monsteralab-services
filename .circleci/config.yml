@@ -1,0 +1,47 @@
+version: 2.1
+
+jobs:
+  Fetch-remote-files:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run: 
+          name: checking out the code
+          command: |
+            echo 'Hello World!'
+            ls -al
+
+  Using-Node:
+    docker:
+      - image: cimg/node:16
+    steps:
+      - run:
+          name: Running the Node Container
+          command: |
+            node -v
+
+  Build-docker-image:
+    docker:
+      - image: cimg/base:stable
+        auth:
+          username: $DOCKER_HUB_USER
+          password: $DOCKER_HUB_PASSWORD
+    steps:
+      - run: 
+          name: build the image
+          command: |
+            echo 'Hello World!'
+            echo 'This is the delivery pipeline'
+
+workflows:
+  building-monsteralab:
+    jobs:
+      - Fetch-remote-files
+      - Using-Node:
+          requires:
+            - Fetch-remote-files
+      - Build-docker-image:
+          requires:
+            - Fetch-remote-files
+            - Using-Node
