@@ -27,15 +27,15 @@ jobs:
     docker:
       - image: cimg/base:stable
         auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD 
+          username: $DOCKER_HUB_USER
+          password: $DOCKER_HUB_PASSWORD 
     steps:
       - run: 
           command: |
            echo $DOCKER_HUB_USER
       - docker/check:
-          docker-password: username 
-          docker-username: password
+          docker-password: DOCKER_HUB_USER 
+          docker-username: DOCKER_HUB_PASSWORD
           use-docker-credentials-store: false
       - docker/build:
           image: monsteralab-auth 
