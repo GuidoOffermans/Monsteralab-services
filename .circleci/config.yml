@@ -24,8 +24,7 @@ jobs:
             node -v
 
   Build-and-push-docker-image:
-    docker:
-      - image: cimg/base:stable
+    executor: docker/docker
     steps:
       - checkout
       - docker/check:
