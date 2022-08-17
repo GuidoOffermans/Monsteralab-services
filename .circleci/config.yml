@@ -26,16 +26,14 @@ jobs:
   Build-and-push-docker-image:
     docker:
       - image: cimg/base:stable
-        auth:
-          username: $DOCKER_HUB_USER
-          password: $DOCKER_HUB_PASSWORD 
     steps:
       - run: 
           command: |
            echo $DOCKER_HUB_USER
+           echo $DOCKER_HUB_PASSWORD
       - docker/check:
-          docker-password: username 
-          docker-username: password
+          docker-username: DOCKER_HUB_USER 
+          docker-password: DOCKER_HUB_PASSWORD 
           use-docker-credentials-store: false
       - docker/build:
           image: monsteralab-auth 
