@@ -45,11 +45,9 @@ workflows:
           requires:
             - Using-Node
       - docker/publish:
-          image: monsteralab-auth
-          after_checkout:  
-            - run:
-                command: cd ./Auth
-                name: Do this after checkout
+          image: guido233/monsteralab-auth
+          docker-context: ./Auth
+          path: ./Auth
           docker-username: DOCKER_HUB_USER 
           docker-password: DOCKER_HUB_PASSWORD 
           requires:
