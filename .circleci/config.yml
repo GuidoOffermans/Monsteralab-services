@@ -36,7 +36,8 @@ jobs:
           docker-password: DOCKER_HUB_PASSWORD 
           use-docker-credentials-store: false
       - docker/build:
-          image: monsteralab-auth 
+          image: monsteralab-auth
+          path: ./Auth 
       - docker/push:
           image: monsteralab-auth  
 
