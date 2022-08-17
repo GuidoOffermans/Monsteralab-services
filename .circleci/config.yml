@@ -12,7 +12,7 @@ jobs:
           name: checking out the code
           command: |
             echo 'Hello World!'
-            ls -al
+            ls -la ./Auth
 
   Using-Node:
     docker:
@@ -27,17 +27,13 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-      - run: 
-          command: |
-           echo $DOCKER_HUB_USER
-           echo $DOCKER_HUB_PASSWORD
       - docker/check:
           docker-username: DOCKER_HUB_USER 
           docker-password: DOCKER_HUB_PASSWORD 
           use-docker-credentials-store: false
       - docker/build:
           image: monsteralab-auth
-          path: ./Auth/ 
+          path: ./Auth 
       - docker/push:
           image: monsteralab-auth  
 
