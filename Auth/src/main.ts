@@ -1,9 +1,15 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { RmqService } from './RabbitMQ/rmq.service';
 
-async function bootstrap(): Promise<void> {
+async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+
+  const rmqService = app.get<RmqService>(RmqService);
+  app.connectMicroservice(rmqService.getOptions('cats'));
+
+  await app.startAllMicroservices();
+  await app.listen(3001);
 }
 
-bootstrap().then(() => console.log('bootstrapped'));
+bootstrap();
