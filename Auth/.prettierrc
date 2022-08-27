@@ -1,4 +1,14 @@
 {
-  "singleQuote": true,
-  "trailingComma": "all"
+  "printWidth": 80,
+  "singleQuote": false,
+  "trailingComma": "all",
+  "tabWidth": 4,
+  "useTabs": true,
+  "semi": true,
+  "quoteProps": "as-needed",
+  "jsxSingleQuote": false,
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "arrowParens": "always",
+  "parser": "typescript"
 }
