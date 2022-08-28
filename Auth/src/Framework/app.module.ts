@@ -3,6 +3,8 @@ import { UsersController } from "./Http/users.controller";
 import { GetUsersHandler } from "../App/QueryHandler/GetUsersHandler";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { User } from "./Models/User";
+import { CreateUserHandler } from "../App/CommandHandler/CreateUserHandler";
+import { UsersDomainRepository } from "../Infrastructure/UsersDomainRepository";
 
 @Module({
 	imports: [
@@ -20,6 +22,13 @@ import { User } from "./Models/User";
 		}),
 	],
 	controllers: [UsersController],
-	providers: [GetUsersHandler],
+	providers: [
+		CreateUserHandler,
+		GetUsersHandler,
+		{
+			provide: "UsersDomainRepositoryInterface",
+			useClass: UsersDomainRepository,
+		},
+	],
 })
 export class AppModule {}
