@@ -6,13 +6,11 @@ import { ExtractJwt, Strategy as JWTPassportStrategy } from "passport-jwt";
 import { jwtConstants } from "../app.module";
 import { UUID } from "../../Domain/Values/UUID";
 import { UsersDomainRepositoryInterface } from "../../App/Ports/UsersDomainRepositoryInterface";
+import { USER_REPOSITORY } from "../constrants";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(JWTPassportStrategy, "jsonWebToken") {
-	constructor(
-		@Inject("UsersDomainRepositoryInterface")
-		private readonly usersDomainRepository: UsersDomainRepositoryInterface,
-	) {
+	constructor(@Inject(USER_REPOSITORY) private readonly usersDomainRepository: UsersDomainRepositoryInterface) {
 		super({
 			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 			ignoreExpiration: false,
@@ -22,9 +20,7 @@ export class JwtStrategy extends PassportStrategy(JWTPassportStrategy, "jsonWebT
 
 	async validate(payload: JwtPayload) {
 		try {
-			return await this.usersDomainRepository.findById(
-				new UUID(payload.sub),
-			);
+			return await this.usersDomainRepository.findById(new UUID(payload.sub));
 		} catch (error) {
 			throw new UnauthorizedException();
 		}

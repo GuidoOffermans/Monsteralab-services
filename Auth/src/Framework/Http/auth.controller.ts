@@ -3,11 +3,11 @@ import { Controller, Get, HttpCode, HttpStatus, Inject, Post, Request, UseGuards
 import { LocalAuthGuard } from "../Guards/LocalAuthGuard";
 import { JwtAuthGuard } from "../Guards/JwtAuthGuard";
 import { AuthTokenFactoryInterface } from "../../App/Ports/AuthTokenFactoryInterface";
+import { AUTH_TOKEN_FACTORY } from "../constrants";
 
 @Controller("api")
 export class AuthController {
-	constructor(@Inject("AuthTokenFactoryInterface") private readonly authTokenFactory: AuthTokenFactoryInterface) {
-	}
+	constructor(@Inject(AUTH_TOKEN_FACTORY) private readonly authTokenFactory: AuthTokenFactoryInterface) {}
 
 	@UseGuards(LocalAuthGuard)
 	@HttpCode(HttpStatus.OK)

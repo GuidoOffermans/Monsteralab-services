@@ -1,20 +1,20 @@
 import { EmailAddress } from "../../Domain/Values/EmailAddress";
-import { Password } from "../../Domain/Values/Password";
+import { UnHashedPassword } from "../../Domain/Values/UnHashedPassword";
 
 export class CreateUser {
 	private readonly _email: EmailAddress;
-	private readonly _password: Password;
+	private readonly _unHashedPassword: UnHashedPassword;
 
-	public constructor(email: EmailAddress, password: Password) {
+	public constructor(email: EmailAddress, unHashedPassword: UnHashedPassword) {
 		this._email = email;
-		this._password = password;
+		this._unHashedPassword = unHashedPassword;
 	}
 
 	public get email(): EmailAddress {
 		return this._email;
 	}
 
-	public get password(): Password {
-		return this._password;
+	public get unHashedPassword(): UnHashedPassword {
+		return this._unHashedPassword;
 	}
 }

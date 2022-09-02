@@ -13,6 +13,9 @@ import { LocalAuthStrategy } from "./Strategies/localAuthStrategy";
 import { JWTAuthTokenFactory } from "../Infrastructure/JWTAuthTokenFactory";
 import { JwtAuthGuard } from "./Guards/JwtAuthGuard";
 import { JwtStrategy } from "./Strategies/JwtStrategy";
+import { BcryptHasher } from "../Infrastructure/BcryptHasher";
+import { BcryptComparer } from "../Infrastructure/BcryptComparer";
+import { AUTH_TOKEN_FACTORY, PASSWORD_COMPARER, PASSWORD_HASHER, USER_REPOSITORY } from "./constrants";
 
 export const jwtConstants = {
 	secret: "secret",
@@ -46,14 +49,21 @@ export const jwtConstants = {
 		CreateUserHandler,
 		GetUsersHandler,
 		{
-			provide: "AuthTokenFactoryInterface",
+			provide: USER_REPOSITORY,
+			useClass: UsersDomainRepository,
+		},
+		{
+			provide: AUTH_TOKEN_FACTORY,
 			useClass: JWTAuthTokenFactory,
 		},
 		{
-			provide: "UsersDomainRepositoryInterface",
-			useClass: UsersDomainRepository,
+			provide: PASSWORD_HASHER,
+			useClass: BcryptHasher,
+		},
+		{
+			provide: PASSWORD_COMPARER,
+			useClass: BcryptComparer,
 		},
 	],
 })
-export class AppModule {
-}
+export class AppModule {}

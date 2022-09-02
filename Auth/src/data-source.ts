@@ -17,6 +17,3 @@ const config = {
 } as unknown as SqlServerConnectionOptions;
 
 export default new DataSource(config);
-
-
-

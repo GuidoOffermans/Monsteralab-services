@@ -1,2 +1,1 @@
-export class InvalidValueError extends Error {
-}
+export class InvalidValueError extends Error {}

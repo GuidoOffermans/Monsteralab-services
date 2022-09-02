@@ -11,8 +11,7 @@ import { UsersDomainRepositoryInterface } from "../App/Ports/UsersDomainReposito
 
 @Injectable()
 export class UsersDomainRepository implements UsersDomainRepositoryInterface {
-	public constructor(private dataSource: DataSource) {
-	}
+	public constructor(private dataSource: DataSource) {}
 
 	public async findById(id: UUID): Promise<User> {
 		const ormUser = await (await this.getUsersSelectQueryBuilder())
@@ -23,11 +22,7 @@ export class UsersDomainRepository implements UsersDomainRepositoryInterface {
 			throw new UserNotFoundError();
 		}
 
-		return new User(
-			new UUID(ormUser.id),
-			new EmailAddress(ormUser.email),
-			new Password(ormUser.password),
-		);
+		return new User(new UUID(ormUser.id), new EmailAddress(ormUser.email), new Password(ormUser.password));
 	}
 
 	public async findOne(email: EmailAddress): Promise<User> {
@@ -39,11 +34,7 @@ export class UsersDomainRepository implements UsersDomainRepositoryInterface {
 			throw new UserNotFoundError();
 		}
 
-		return new User(
-			new UUID(ormUser.id),
-			new EmailAddress(ormUser.email),
-			new Password(ormUser.password),
-		);
+		return new User(new UUID(ormUser.id), new EmailAddress(ormUser.email), new Password(ormUser.password));
 	}
 
 	public async save(user: User): Promise<void> {
