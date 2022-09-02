@@ -11,6 +11,8 @@ import { CreateUserHandler } from "../App/CommandHandler/CreateUserHandler";
 import { LocalAuthGuard } from "./Guards/LocalAuthGuard";
 import { LocalAuthStrategy } from "./Strategies/localAuthStrategy";
 import { JWTAuthTokenFactory } from "../Infrastructure/JWTAuthTokenFactory";
+import { JwtAuthGuard } from "./Guards/JwtAuthGuard";
+import { JwtStrategy } from "./Strategies/JwtStrategy";
 
 export const jwtConstants = {
 	secret: "secret",
@@ -39,6 +41,8 @@ export const jwtConstants = {
 	providers: [
 		LocalAuthGuard,
 		LocalAuthStrategy,
+		JwtAuthGuard,
+		JwtStrategy,
 		CreateUserHandler,
 		GetUsersHandler,
 		{
