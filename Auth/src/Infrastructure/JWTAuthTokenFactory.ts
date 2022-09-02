@@ -9,7 +9,7 @@ export class JWTAuthTokenFactory implements AuthTokenFactoryInterface {
 	}
 
 	public async generateToken(user: User): Promise<string> {
-		const payload = { username: user.emailAddress, sub: user.id };
+		const payload = { username: user.emailAddress.value, sub: user.id.value };
 		return this.jwtService.sign(payload);
 	}
 }
