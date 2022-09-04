@@ -2,6 +2,7 @@
   "name": "monsteralab-auth-service",
   "version": "0.0.1",
   "description": "",
+  "type": "commonjs",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
@@ -19,10 +20,14 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config test/jest-e2e.json",
-    "typeorm": "ts-node --project ./tsconfig.json -r tsconfig-paths/register ./tools/typeorm.custom-cli.ts"
+    "show-migrations": "typeorm-ts-node-commonjs migration:show -d ./src/data-source.ts",
+    "migrate": "typeorm-ts-node-commonjs migration:run -d ./src/data-source.ts",
+    "revert-migration": "typeorm-ts-node-commonjs migration:revert -d ./src/data-source.ts",
+    "generate-migration": "typeorm-ts-node-commonjs migration:generate ./src/migrations/$npm_config_name -d ./src/data-source.ts --"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.11",
+    "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.11",
     "@nestjs/jwt": "^9.0.0",
     "@nestjs/passport": "^9.0.0",
@@ -30,6 +35,7 @@
     "@nestjs/typeorm": "^9.0.1",
     "bcrypt": "^5.0.1",
     "class-validator": "^0.13.2",
+    "dotenv": "^16.0.2",
     "mysql2": "^2.3.3",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
@@ -38,7 +44,8 @@
     "rimraf": "^3.0.2",
     "rxjs": "^7.5.6",
     "typeorm": "0.3.6",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "zod": "^3.18.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.1.1",

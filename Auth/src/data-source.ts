@@ -1,19 +1,17 @@
+require("dotenv").config();
 import { DataSource } from "typeorm";
-import { SqlServerConnectionOptions } from "typeorm/driver/sqlserver/SqlServerConnectionOptions";
 import { User } from "./Framework/Models/User";
 
-const config = {
+export default new DataSource({
 	migrationsTableName: "migrations",
 	type: "mysql",
-	host: "localhost",
-	port: 3306,
-	username: "root",
-	password: "",
-	database: "monsteralab-auth",
-	entities: [User],
+	host: process.env.DB_HOST,
+	port: parseInt(process.env.DB_PORT),
+	username: process.env.DB_USER,
+	password: process.env.DB_PW,
+	database: process.env.DB_NAME,
+	entities: ["src/Domain/Framework/Models/*.ts"],
 	migrations: ["src/migrations/*.ts"],
 	synchronize: false,
 	logging: true,
-} as unknown as SqlServerConnectionOptions;
-
-export default new DataSource(config);
+});

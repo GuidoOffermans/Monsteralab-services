@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import { JwtModule } from "@nestjs/jwt";
+import { TypeOrmModule, TypeOrmModuleOptions } from "@nestjs/typeorm";
+import { ConfigModule, ConfigService } from "@nestjs/config";
+import { JwtModule, JwtModuleOptions } from "@nestjs/jwt";
 
 import { User } from "./Models/User";
 import { UsersController } from "./Http/users.controller";
@@ -16,28 +17,41 @@ import { JwtStrategy } from "./Strategies/JwtStrategy";
 import { BcryptHasher } from "../Infrastructure/BcryptHasher";
 import { BcryptComparer } from "../Infrastructure/BcryptComparer";
 import { AUTH_TOKEN_FACTORY, PASSWORD_COMPARER, PASSWORD_HASHER, USER_REPOSITORY } from "./constrants";
-
-export const jwtConstants = {
-	secret: "secret",
-};
+import database, { DataBaseConfig } from "./Config/database";
+import jwt, { JWTConfig } from "./Config/jwt";
 
 @Module({
 	imports: [
-		TypeOrmModule.forRootAsync({
-			useFactory: () => ({
-				type: "mysql",
-				host: "localhost",
-				port: 3306,
-				username: "root",
-				password: "",
-				database: "monsteralab-auth",
-				entities: [User],
-				synchronize: false,
-			}),
+		ConfigModule.forRoot({
+			load: [database, jwt],
+			isGlobal: true,
+			envFilePath: '.env',
 		}),
-		JwtModule.register({
-			secret: jwtConstants.secret,
-			signOptions: { expiresIn: "1d" },
+		TypeOrmModule.forRootAsync({
+			useFactory: (configService: ConfigService): TypeOrmModuleOptions => {
+				const config: DataBaseConfig = configService.get("database");
+				return {
+					type: "mysql",
+					host: config.host,
+					port: config.port,
+					username: config.username,
+					password: config.password,
+					database: config.database,
+					entities: ["src/Domain/Framework/Models/*.ts"],
+					synchronize: false,
+				};
+			},
+			inject: [ConfigService],
+		}),
+		JwtModule.registerAsync({
+			useFactory: (configService: ConfigService): JwtModuleOptions => {
+				const config: JWTConfig = configService.get("jwt");
+				return {
+					secret: config.secret,
+					signOptions: { expiresIn: config.expiresIn },
+				};
+			},
+			inject: [ConfigService],
 		}),
 	],
 	controllers: [UsersController, AuthController],
