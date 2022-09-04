@@ -37,7 +37,7 @@ import jwt, { JWTConfig } from "./Config/jwt";
 					username: config.username,
 					password: config.password,
 					database: config.database,
-					entities: ["src/Domain/Framework/Models/*.ts"],
+					entities: [User],
 					synchronize: false,
 				};
 			},
